@@ -25,6 +25,7 @@ class EcosolWindow(Adw.ApplicationWindow):
 
     main_text_view = Gtk.Template.Child()
     open_button = Gtk.Template.Child()
+    cursor_pos = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -32,6 +33,16 @@ class EcosolWindow(Adw.ApplicationWindow):
         open_action = Gio.SimpleAction(name="open")
         open_action.connect("activate", self.open_file_dialog)
         self.add_action(open_action)
+
+        buffer = self.main_text_view.get_buffer()
+        buffer.connect("notify::cursor-position", self.update_cursor_position)
+
+    def update_cursor_position(self, buffer, _):
+        cursor_pos = buffer.props.cursor_position
+        iter = buffer.get_iter_at_offset(cursor_pos)
+        line = iter.get_line() + 1
+        column = iter.get_line_offset() + 1
+        self.cursor_pos.set_text(f"Ln {line}, Column {column}")
 
     def open_file_dialog(self, action, parameter):
         native = Gtk.FileDialog()
