@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=com.github.ECOSOL
+Exec=@bindir@/ecosol --gapplication-service

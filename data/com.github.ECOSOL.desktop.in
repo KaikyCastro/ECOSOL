@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=ecosol
+Exec=ecosol
+Icon=com.github.ECOSOL
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=GTK;
+StartupNotify=true
+DBusActivatable=true
